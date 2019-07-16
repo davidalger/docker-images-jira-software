@@ -7,4 +7,4 @@ RUN mkdir -p /tmp/mysql-connector \
         | tar -xz --strip-components=1 -C /tmp/mysql-connector \
     && mv /tmp/mysql-connector/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${JIRA_INSTALL_DIR}/lib/ \
     && rm -rf /tmp/mysql-connector \
-    && chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/
+    && chown ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/lib/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar
