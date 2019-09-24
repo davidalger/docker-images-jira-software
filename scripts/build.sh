@@ -12,6 +12,7 @@ readonly BASE_DIR="$(
   )" >/dev/null \
   && pwd
 )/.."
+pushd ${BASE_DIR} >/dev/null
 
 ## if --push is passed as first argument to script, this will login to docker hub and push images
 PUSH_FLAG=
@@ -19,9 +20,11 @@ if [[ "${1:-}" = "--push" ]]; then
   PUSH_FLAG=1
 fi
 
-## change into base directory and login to docker hub if neccessary
-pushd ${BASE_DIR} >/dev/null
-[[ $PUSH_FLAG ]] && docker login
+## login to docker hub as needed
+if [[ $PUSH_FLAG ]]; then
+  [ -t 1 ] && docker login \
+    || echo "${DOCKER_PASSWORD:-}" | docker login -u "${DOCKER_USERNAME:-}" --password-stdin
+fi
 
 ## iterate over and build each version/variant combination
 VERSION_LIST="${VERSION_LIST:-"8.2 8.2.1 latest"}"
@@ -35,8 +38,6 @@ for BUILD_VERSION in ${VERSION_LIST}; do
     else
       BUILD_VARIANT=
     fi
-
-    export PHP_VERSION
 
     printf "\e[01;31m==> building ${IMAGE_TAG}\033[0m\n"
     export _BUILD_VERSION=${BUILD_VERSION}
