@@ -1,4 +1,4 @@
-FROM dchevell/jira-software:${_BUILD_VERSION}
+FROM atlassian/jira-software:${_BUILD_VERSION}
 
 ARG MYSQL_CONNECTOR_VERSION=5.1.47
 
