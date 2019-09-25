@@ -27,7 +27,7 @@ if [[ $PUSH_FLAG ]]; then
 fi
 
 ## iterate over and build each version/variant combination
-VERSION_LIST="${VERSION_LIST:-"8.2 8.2.1 latest"}"
+VERSION_LIST="${VERSION_LIST:-"latest"}"
 VARIANT_LIST="${VARIANT_LIST:-"base mysql"}"
 
 for BUILD_VERSION in ${VERSION_LIST}; do

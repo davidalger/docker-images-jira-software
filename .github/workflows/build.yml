@@ -1,0 +1,21 @@
+name: Docker Image CI
+on:
+  schedule:
+  - cron: "0 4 * * 1"   # 4 AM UTC on Monday
+  push:
+    branches:
+    - master
+jobs:
+  build:
+    name: Jira Software ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [8.2, 8.3, 8.4, latest]
+    steps:
+    - uses: actions/checkout@v1
+    - run: ./scripts/build.sh --push
+      env:
+        VERSION_LIST: ${{ matrix.version }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
