@@ -1,6 +1,6 @@
 FROM atlassian/jira-software:${_BUILD_VERSION}
 
-ARG MYSQL_CONNECTOR_VERSION=5.1.47
+ARG MYSQL_CONNECTOR_VERSION=5.1.49
 
 RUN mkdir -p /tmp/mysql-connector \
     && curl -s https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.tar.gz \
